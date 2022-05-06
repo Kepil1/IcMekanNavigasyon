@@ -12,10 +12,10 @@ public class DropdownController : MonoBehaviour
         dropdown.options.Clear();
 
         List<string> items = new List<string>();
-        items.Add("Not Selected");
-        items.Add("Kitchen");
-        items.Add("Hall");
-        items.Add("Room");
+        items.Add("Seçiniz...");
+        items.Add("101");
+        items.Add("102");
+        items.Add("103");
 
         foreach(var item in items){
             dropdown.options.Add(new Dropdown.OptionData(){text = item});
