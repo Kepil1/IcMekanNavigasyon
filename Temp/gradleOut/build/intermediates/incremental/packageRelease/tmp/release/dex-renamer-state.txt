@@ -1,4 +1,0 @@
-#Thu May 05 02:15:23 EET 2022
-base.0=C\:\\Users\\Mert\\Desktop\\P30.03.2022\\IcMekanNavigasyon\\Temp\\gradleOut\\build\\intermediates\\dex\\release\\out\\classes.dex
-path.0=classes.dex
-renamed.0=classes.dex
