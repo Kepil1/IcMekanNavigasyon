@@ -41,6 +41,13 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 anchorPos;
 
+    public LineRenderer lineRenderer;
+
+    public Vector3 lineStart;
+    public Vector3 lineEnd;
+
+    public NavMeshAgent myAgent;
+
     //create initial path, get linerenderer.
     void Start()
     {
@@ -74,11 +81,26 @@ public class PlayerController : MonoBehaviour
                     line.enabled = false;
                     break;
         }
+
+        //lineStart = myAgent.nextPosition;
+        //Debug.Log($"start : {lineStart}");
+        //lineEnd = target.position;
+        //Debug.Log($"end : {lineEnd}");
+
+        //lineRenderer.SetPosition(0, new Vector3(0.6610001f, 1.300323f, 6.813996f));
+        //lineRenderer.SetPosition(1, new Vector3(1.87f, 1.04f, -7.420001f));
         //if a target is set, calculate and update path
         if(target != null)
         {
-            NavMesh.CalculatePath(person.transform.position, target.position, 
-                          NavMesh.AllAreas, path);
+            lineStart = myAgent.nextPosition;
+            Debug.Log($"start : {lineStart}");
+            lineEnd = target.position;
+            Debug.Log($"end : {lineEnd}");
+
+            lineRenderer.SetPosition(0, lineStart);
+            lineRenderer.SetPosition(1, lineEnd);
+
+            NavMesh.CalculatePath(person.transform.position, target.position, NavMesh.AllAreas, path);
             //lost path due to standing above obstacle (drift)
             // line.material = new Material(Shader.Find("Mobile/Particles/Additive"));
             line.material = Resources.Load("Assets/Materials/PathMaterial.mat") as Material;
@@ -90,14 +112,14 @@ public class PlayerController : MonoBehaviour
             line.positionCount = path.corners.Length;
             line.SetPositions(path.corners);
 
-            // A simple 2 color gradient with a fixed alpha of 1.0f.
-        // float alpha = 1.0f;
-        // Gradient gradient = new Gradient();
-        // gradient.SetKeys(
-        //     new GradientColorKey[] { new GradientColorKey(startColor, 0.0f), new GradientColorKey(startColor, 1.0f) },
-        //     new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) }
-        // );
-        // line.colorGradient = gradient;
+            //A simple 2 color gradient with a fixed alpha of 1.0f.
+            float alpha = 1.0f;
+            Gradient gradient = new Gradient();
+            gradient.SetKeys(
+                new GradientColorKey[] { new GradientColorKey(Color.red, 0.0f), new GradientColorKey(Color.red, 1.0f) },
+                new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) }
+            );
+            line.colorGradient = gradient;
 
             line.enabled = true;
         } 
